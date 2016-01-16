@@ -3,10 +3,16 @@ var module = angular.module("lvl.directives.dragdrop", ['lvl.services']);
 module.directive('lvlDraggable', ['$rootScope', 'uuid', function ($rootScope, uuid) {
     return {
         restrict: 'A',
+	scope: {
+	  draggableId: '='	
+	},
         link: function (scope, el, attrs, controller) {
             angular.element(el).attr("draggable", "true");
 
-            var id = angular.element(el).attr("id");
+            var id = scope.draggableId;
+
+            if (!id)
+              id = angular.element(el).attr("id");
 
             if (!id) {
                 id = uuid.new()
